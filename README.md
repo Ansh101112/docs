@@ -1,4 +1,3 @@
-cat << 'EOF' > README.md
 JabRod Docs
 
 This repository contains the official documentation for JabRod.
