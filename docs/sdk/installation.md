@@ -14,13 +14,13 @@ Install the Jabrod SDK for TypeScript/JavaScript.
 ## Installation
 
 ```bash npm2yarn
-npm install @jabrod/sdk
+npm install jabrod
 ```
 
 ## Basic Setup
 
 ```typescript
-import { Jabrod } from '@jabrod/sdk';
+import { Jabrod } from 'jabrod';
 
 const jclient = Jabrod({
   apiKey: 'jb_your_api_key_here'
@@ -45,13 +45,13 @@ import type {
   ChatResult,
   QueryResult,
   UsageStats
-} from '@jabrod/sdk';
+} from 'jabrod';
 ```
 
 ## Error Handling
 
 ```typescript
-import { Jabrod, JabrodError } from '@jabrod/sdk';
+import { Jabrod, JabrodError } from 'jabrod';
 
 try {
   const response = await jclient.chat.complete({

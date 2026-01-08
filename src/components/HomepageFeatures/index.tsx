@@ -45,7 +45,7 @@ const FeatureList: FeatureItem[] = [
         description: (
             <>
                 Simple, type-safe SDK for Node.js and browsers.
-                <code>npm install @jabrod/sdk</code> and start building.
+                <code>npm install jabrod</code> and start building.
             </>
         ),
     },

@@ -28,7 +28,7 @@ Your API key is only shown once. If you lose it, you'll need to create a new one
 #### With the SDK
 
 ```typescript
-import { Jabrod } from '@jabrod/sdk';
+import { Jabrod } from 'jabrod';
 
 const jclient = Jabrod({
   apiKey: 'jb_your_api_key_here'

@@ -22,13 +22,13 @@ Store your API key securely. It will only be shown once!
 ## 2. Install the SDK
 
 ```bash
-npm install @jabrod/sdk
+npm install jabrod
 ```
 
 ## 3. Create a Knowledge Base
 
 ```typescript
-import { Jabrod } from '@jabrod/sdk';
+import { Jabrod } from 'jabrod';
 
 const jclient = Jabrod({ apiKey: 'jb_your_key_here' });
 

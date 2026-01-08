@@ -37,7 +37,7 @@ function HomepageHeader() {
                     <div className={styles.codePreview}>
                         <code>
                             <span className={styles.comment}>// Install the SDK</span><br />
-                            <span className={styles.keyword}>npm</span> install @jabrod/sdk
+                            <span className={styles.keyword}>npm</span> install jabrod
                         </code>
                     </div>
                 </div>
