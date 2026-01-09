@@ -8,7 +8,7 @@ Get up and running with Jabrod in 5 minutes.
 
 ## 1. Get Your API Key
 
-First, create an API key in the [Jabrod Dashboard](https://agent.jabrod.com/dashboard).
+First, create an API key in the [Jabrod Dashboard](https://agent.jabrod.com/user).
 
 1. Log in to your account
 2. Go to **Dashboard** > **API Keys**

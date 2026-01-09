@@ -1,11 +1,11 @@
-JabRod Docs
+Jabrod Docs
 
-This repository contains the official documentation for JabRod.
+This repository contains the official documentation for Jabrod.
 The docs are served at https://docs.jabrod.com and cover guides, API references,
 SDK usage, examples, and architectural explanations.
 
 Purpose
-- Help developers understand and integrate JabRod
+- Help developers understand and integrate Jabrod
 - Provide clear usage guides for APIs, SDKs, and RAG features
 - Maintain up-to-date documentation alongside product changes
 
@@ -22,7 +22,7 @@ Tech Stack
 
 Local Setup (example)
 1. Clone the repository
-   git clone https://github.com/JabRod/docs.git
+   git clone https://github.com/jabrod/docs.git
    cd docs
 
 2. Install dependencies
@@ -60,6 +60,6 @@ Reporting Issues
 - For product bugs, link the relevant repository or API
 
 License
-This repository follows the same license as the main JabRod project.
+This repository follows the same license as the main Jabrod project.
 See LICENSE for details.
 EOF
