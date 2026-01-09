@@ -24,8 +24,8 @@ const FeatureList: FeatureItem[] = [
         icon: '🔍',
         description: (
             <>
-                Query your documents with natural language. Get relevant chunks
-                with similarity scores - perfect for building search experiences.
+                Query your documents with natural language using <code>jabrod.rag.query()</code>.
+                Get relevant chunks with similarity scores.
             </>
         ),
     },
@@ -34,8 +34,8 @@ const FeatureList: FeatureItem[] = [
         icon: '💬',
         description: (
             <>
-                Chat with your knowledge bases using state-of-the-art LLMs.
-                Get AI-generated responses grounded in your content.
+                Chat with your knowledge bases using <code>jabrod.rag.chat()</code>.
+                AI responses grounded in your content.
             </>
         ),
     },
@@ -44,18 +44,18 @@ const FeatureList: FeatureItem[] = [
         icon: '⚡',
         description: (
             <>
-                Simple, type-safe SDK for Node.js and browsers.
+                Simple, type-safe SDK with fluent API.
                 <code>npm install jabrod</code> and start building.
             </>
         ),
     },
     {
-        title: 'API First',
-        icon: '🔗',
+        title: 'Builder Pattern',
+        icon: '🛠️',
         description: (
             <>
-                RESTful API with OpenAPI spec. Use with any language or tool.
-                Comprehensive documentation and examples included.
+                Fluent API for complex queries.
+                <code>.withQuery().withKnowledgeBase().execute()</code>
             </>
         ),
     },

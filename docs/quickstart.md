@@ -25,15 +25,20 @@ Store your API key securely. It will only be shown once!
 npm install jabrod
 ```
 
-## 3. Create a Knowledge Base
+## 3. Initialize the Client
 
 ```typescript
-import { Jabrod } from 'jabrod';
+import { JabrodClient } from 'jabrod';
 
-const jclient = Jabrod({ apiKey: 'jb_your_key_here' });
+const jabrod = new JabrodClient({
+  apiKey: process.env.JABROD_API_KEY
+});
+```
 
-// Create a knowledge base
-const kb = await jclient.kb.create({
+## 4. Create a Knowledge Base
+
+```typescript
+const kb = await jabrod.kb.create({
   name: 'My Documents',
   description: 'Product documentation'
 });
@@ -41,33 +46,48 @@ const kb = await jclient.kb.create({
 console.log('Created KB:', kb.id);
 ```
 
-## 4. Upload Documents
+## 5. Upload Documents
 
 ```typescript
-// Browser: Upload from file input
+// Upload a file (browser)
 const fileInput = document.querySelector('input[type="file"]');
-const file = fileInput.files[0];
-
-await jclient.kb.uploadFile({
+await jabrod.kb.upload({
   kbId: kb.id,
-  file: file
+  file: fileInput.files[0]
 });
 
 // Or upload text directly
-await jclient.kb.uploadText({
+await jabrod.kb.uploadText({
   kbId: kb.id,
   content: 'Your text content here...',
   name: 'notes.txt'
 });
 ```
 
-## 5. Chat with Your Documents
+## 6. Query with RAG
+
+### Semantic Search (without LLM)
 
 ```typescript
-const response = await jclient.chat.complete({
-  kbId: kb.id,
-  message: 'What are the key points in my documents?'
-});
+const result = await jabrod.rag
+  .queryBuilder()
+  .withQuery('What is the refund policy?')
+  .withKnowledgeBase(kb.id)
+  .withTopK(5)
+  .execute();
+
+console.log(result.chunks);
+```
+
+### Chat with AI (with LLM)
+
+```typescript
+const response = await jabrod.rag
+  .chatBuilder()
+  .withMessage('Summarize the key points')
+  .withKnowledgeBase(kb.id)
+  .withModel('gpt-4o-mini')
+  .execute();
 
 console.log(response.message);
 console.log('Sources:', response.sources);

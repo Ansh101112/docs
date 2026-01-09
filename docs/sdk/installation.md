@@ -20,10 +20,10 @@ npm install jabrod
 ## Basic Setup
 
 ```typescript
-import { Jabrod } from 'jabrod';
+import { JabrodClient } from 'jabrod';
 
-const jclient = Jabrod({
-  apiKey: 'jb_your_api_key_here'
+const jabrod = new JabrodClient({
+  apiKey: process.env.JABROD_API_KEY
 });
 ```
 
@@ -33,6 +33,16 @@ const jclient = Jabrod({
 |--------|------|----------|-------------|
 | `apiKey` | string | Yes | Your API key (starts with `jb_`) |
 | `baseUrl` | string | No | Custom API URL (default: `https://cloud.jabrod.com`) |
+
+## SDK Structure
+
+The SDK follows a **service-based architecture**:
+
+```typescript
+jabrod.kb       // Knowledge Base operations
+jabrod.rag      // RAG operations (query & chat)
+jabrod.usage    // Usage statistics
+```
 
 ## TypeScript
 
@@ -51,10 +61,10 @@ import type {
 ## Error Handling
 
 ```typescript
-import { Jabrod, JabrodError } from 'jabrod';
+import { JabrodClient, JabrodError } from 'jabrod';
 
 try {
-  const response = await jclient.chat.complete({
+  const result = await jabrod.rag.chat({
     kbId: 'kb-id',
     message: 'Hello'
   });

@@ -2,73 +2,147 @@
 sidebar_position: 3
 ---
 
-# Chat & Query
+# RAG - Query & Chat
 
-Query and chat with your knowledge bases.
+Query and chat with your knowledge bases using RAG.
 
 ## Overview
 
-There are two ways to interact with your knowledge bases:
+The `jabrod.rag` service provides two main operations:
 
-- **Query** - Semantic search that returns relevant document chunks
-- **Chat** - AI-generated responses based on your content (RAG)
+- **query()** - Semantic search without LLM (returns relevant chunks)
+- **chat()** - RAG with LLM response (AI-generated answer)
+
+Both support a **fluent builder pattern** for complex queries.
+
+---
 
 ## Query (Semantic Search)
 
-Returns relevant chunks from your documents without LLM processing.
+Returns relevant document chunks without LLM processing.
+
+### Quick Method
 
 ```typescript
-const results = await jclient.chat.query({
-  kbId: 'kb-id',
+const result = await jabrod.rag.query({
+  kbId: 'kb_id',
   query: 'What is the return policy?',
-  topK: 5  // Number of results (default: 5, max: 20)
+  topK: 5
 });
 
-console.log(results.chunks);
-console.log(results.latencyMs);
+console.log(result.chunks);
+console.log(result.latencyMs);
+```
+
+### Builder Pattern (Recommended)
+
+```typescript
+const result = await jabrod.rag
+  .queryBuilder()
+  .withQuery('What is the return policy?')
+  .withKnowledgeBase('kb_id')
+  .withTopK(5)
+  .execute();
 ```
 
 ### Query Options
 
-| Option | Type | Required | Description |
-|--------|------|----------|-------------|
-| `kbId` | string | Yes | Knowledge base ID |
-| `query` | string | Yes | Search query |
-| `topK` | number | No | Number of results (1-20, default: 5) |
+| Method | Description |
+|--------|-------------|
+| `.withQuery(text)` | Search query (required) |
+| `.withKnowledgeBase(id)` | KB ID (required) |
+| `.withTopK(n)` | Number of results (1-20, default: 5) |
 
-## Chat (RAG)
+---
 
-Get AI-generated responses based on your knowledge base content.
+## Chat (RAG with LLM)
+
+Get AI-generated responses grounded in your knowledge base.
+
+### Quick Method
 
 ```typescript
-const response = await jclient.chat.complete({
-  kbId: 'kb-id',
-  message: 'Summarize the key points about refunds',
-  model: 'mistralai/mistral-small-3.1-24b-instruct:free',
-  systemPrompt: 'You are a helpful customer support agent.',
-  topK: 5
+const result = await jabrod.rag.chat({
+  kbId: 'kb_id',
+  message: 'Summarize the key points',
+  model: 'gpt-4o-mini'
 });
 
-console.log(response.message);
-console.log(response.sources);
-console.log(response.usage);
+console.log(result.message);
+console.log(result.sources);
+```
+
+### Builder Pattern (Recommended)
+
+```typescript
+const result = await jabrod.rag
+  .chatBuilder()
+  .withMessage('Summarize the key points about refunds')
+  .withKnowledgeBase('kb_id')
+  .withModel('gpt-4o-mini')
+  .withSystemPrompt('You are a helpful customer support agent.')
+  .withTopK(5)
+  .execute();
+
+console.log(result.message);
+console.log(result.usage); // Token usage
 ```
 
 ### Chat Options
 
-| Option | Type | Required | Description |
-|--------|------|----------|-------------|
-| `kbId` | string | Yes | Knowledge base ID |
-| `message` | string | Yes | User message |
-| `model` | string | No | LLM model to use |
-| `systemPrompt` | string | No | Custom system prompt |
-| `topK` | number | No | Context chunks (1-10, default: 5) |
+| Method | Description |
+|--------|-------------|
+| `.withMessage(text)` | User message (required) |
+| `.withKnowledgeBase(id)` | KB ID (required) |
+| `.withModel(name)` | LLM model |
+| `.withSystemPrompt(text)` | Custom system prompt |
+| `.withTopK(n)` | Context chunks (1-10, default: 5) |
+
+---
 
 ## Available Models
 
 | Model | Description |
 |-------|-------------|
-| `mistralai/mistral-small-3.1-24b-instruct:free` | Free, fast responses |
+| `mistralai/mistral-small-3.1-24b-instruct:free` | Free, fast |
 | `meta-llama/llama-3.1-8b-instruct:free` | Free, balanced |
 | `gpt-4o-mini` | Fast, affordable |
 | `gpt-4o` | Most capable |
+
+---
+
+## Response Types
+
+### Query Result
+
+```typescript
+interface QueryResult {
+  chunks: {
+    content: string;
+    score: number;
+    documentId: string;
+  }[];
+  query: string;
+  latencyMs: number;
+}
+```
+
+### Chat Result
+
+```typescript
+interface ChatResult {
+  message: string;
+  sources: {
+    documentId: string;
+    content: string;
+    score: number;
+  }[];
+  model: string;
+  latencyMs: number;
+  usage?: {
+    promptTokens: number;
+    completionTokens: number;
+    totalTokens: number;
+  };
+}
+```

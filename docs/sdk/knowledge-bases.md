@@ -9,7 +9,7 @@ Manage knowledge bases with the SDK.
 ## List Knowledge Bases
 
 ```typescript
-const kbs = await jclient.kb.list();
+const kbs = await jabrod.kb.list();
 
 kbs.forEach(kb => {
   console.log(kb.name, kb.documentCount);
@@ -19,7 +19,7 @@ kbs.forEach(kb => {
 ## Create a Knowledge Base
 
 ```typescript
-const kb = await jclient.kb.create({
+const kb = await jabrod.kb.create({
   name: 'Product Docs',
   description: 'Our product documentation'
 });
@@ -30,7 +30,7 @@ console.log('Created:', kb.id);
 ## Get Knowledge Base Details
 
 ```typescript
-const kb = await jclient.kb.get('kb-id');
+const kb = await jabrod.kb.get('kb_id');
 
 console.log(kb.name);
 console.log(kb.status);       // 'active', 'processing', 'error'
@@ -40,7 +40,7 @@ console.log(kb.documentCount);
 ## Delete a Knowledge Base
 
 ```typescript
-await jclient.kb.delete('kb-id');
+await jabrod.kb.delete('kb_id');
 ```
 
 :::warning
@@ -49,22 +49,21 @@ Deleting a knowledge base removes all documents and cannot be undone.
 
 ## Upload Documents
 
-### Upload a File (Browser)
+### Upload a File
 
 ```typescript
+// Browser
 const fileInput = document.querySelector('input[type="file"]');
-const file = fileInput.files[0];
-
-const doc = await jclient.kb.uploadFile({
+await jabrod.kb.upload({
   kbId: kb.id,
-  file: file
+  file: fileInput.files[0]
 });
 ```
 
 ### Upload Text Content
 
 ```typescript
-const doc = await jclient.kb.uploadText({
+await jabrod.kb.uploadText({
   kbId: kb.id,
   content: 'Your text content here...',
   name: 'my-notes.txt'
@@ -74,7 +73,7 @@ const doc = await jclient.kb.uploadText({
 ## List Documents
 
 ```typescript
-const docs = await jclient.kb.listDocuments('kb-id');
+const docs = await jabrod.kb.listDocuments('kb_id');
 
 docs.forEach(doc => {
   console.log(doc.name, doc.status, doc.chunkCount);
